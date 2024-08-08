@@ -1,5 +1,5 @@
 {
-  "name": "@starter/prettier",
+  "name": "@alpha/prettier",
   "version": "0.0.0",
   "main": "index.mjs",
   "private": true,

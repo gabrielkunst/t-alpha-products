@@ -1,5 +1,5 @@
 {
-  "extends": "@starter/tsconfig/library.json",
+  "extends": "@alpha/tsconfig/library.json",
   "include": [
     "index.ts"
   ]
