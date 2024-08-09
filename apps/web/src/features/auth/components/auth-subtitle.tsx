@@ -5,9 +5,6 @@ interface AuthSubtitleProps
 
 export function AuthSubtitle({ className, ...props }: AuthSubtitleProps) {
   return (
-    <p
-      {...props}
-      className={cn('text-sm text-muted-foreground', className)}
-    />
+    <p {...props} className={cn('text-sm text-muted-foreground', className)} />
   )
 }

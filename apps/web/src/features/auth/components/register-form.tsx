@@ -1,12 +1,14 @@
 'use client'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+
+import { Button } from '@/components/ui/button'
+import { ErrorMessage } from '@/components/ui/error-message'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Button } from '@/components/ui/button'
-import { useForm } from 'react-hook-form'
-import { registerSchema, RegisterSchema } from '../utils'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { ErrorMessage } from '@/components/ui/error-message'
+
+import { RegisterSchema, registerSchema } from '../utils'
 
 export function RegisterForm() {
   const {
@@ -23,16 +25,10 @@ export function RegisterForm() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="space-y-6"
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <div className="space-y-2">
         <div className="space-y-1">
-          <Label
-            className="sr-only"
-            htmlFor="name"
-          >
+          <Label className="sr-only" htmlFor="name">
             Nome
           </Label>
 
@@ -48,10 +44,7 @@ export function RegisterForm() {
         </div>
 
         <div className="space-y-1">
-          <Label
-            className="sr-only"
-            htmlFor="taxNumber"
-          >
+          <Label className="sr-only" htmlFor="taxNumber">
             CPF / CNPJ
           </Label>
 
@@ -67,10 +60,7 @@ export function RegisterForm() {
         </div>
 
         <div className="space-y-1">
-          <Label
-            className="sr-only"
-            htmlFor="mail"
-          >
+          <Label className="sr-only" htmlFor="mail">
             E-mail
           </Label>
 
@@ -86,10 +76,7 @@ export function RegisterForm() {
         </div>
 
         <div className="space-y-1">
-          <Label
-            className="sr-only"
-            htmlFor="phone"
-          >
+          <Label className="sr-only" htmlFor="phone">
             Telefone
           </Label>
 
@@ -105,10 +92,7 @@ export function RegisterForm() {
         </div>
 
         <div className="space-y-1">
-          <Label
-            className="sr-only"
-            htmlFor="password"
-          >
+          <Label className="sr-only" htmlFor="password">
             Senha
           </Label>
 

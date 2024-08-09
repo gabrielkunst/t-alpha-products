@@ -1,12 +1,14 @@
 'use client'
 
-import { Label } from '@/components/ui/label'
-import { useForm } from 'react-hook-form'
-import { loginSchema, LoginSchema } from '../utils'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+
+import { Button } from '@/components/ui/button'
 import { ErrorMessage } from '@/components/ui/error-message'
 import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
+import { Label } from '@/components/ui/label'
+
+import { LoginSchema, loginSchema } from '../utils'
 
 export function LoginForm() {
   const {
@@ -20,16 +22,10 @@ export function LoginForm() {
   const onSubmit = async (formData: LoginSchema) => {}
 
   return (
-    <form
-      className="space-y-6"
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
       <div className="space-y-2">
         <div className="space-y-1">
-          <Label
-            className="sr-only"
-            htmlFor="taxNumber"
-          >
+          <Label className="sr-only" htmlFor="taxNumber">
             CPF / CNPJ
           </Label>
 
@@ -45,10 +41,7 @@ export function LoginForm() {
         </div>
 
         <div className="space-y-1">
-          <Label
-            className="sr-only"
-            htmlFor="password"
-          >
+          <Label className="sr-only" htmlFor="password">
             Senha
           </Label>
 
