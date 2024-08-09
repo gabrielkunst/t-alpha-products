@@ -13,7 +13,6 @@ import { RegisterSchema, registerSchema } from '../utils'
 export function RegisterForm() {
   const {
     register,
-    control,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<RegisterSchema>({
@@ -65,14 +64,14 @@ export function RegisterForm() {
           </Label>
 
           <Input
-            {...register('email')}
-            id="email"
+            {...register('mail')}
+            id="mail"
             placeholder="E-mail"
             disabled={isSubmitting}
             autoComplete="email"
           />
 
-          <ErrorMessage>{errors.email?.message}</ErrorMessage>
+          <ErrorMessage>{errors.mail?.message}</ErrorMessage>
         </div>
 
         <div className="space-y-1">
