@@ -58,7 +58,9 @@ export function LoginForm() {
         </div>
       </div>
 
-      <Button className="w-full">Entrar</Button>
+      <Button className="w-full" disabled={isSubmitting}>
+        Entrar
+      </Button>
     </form>
   )
 }

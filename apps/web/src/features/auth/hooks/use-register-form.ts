@@ -1,0 +1,43 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+
+import { RegisterSchema, registerSchema } from '../utils'
+
+export function useRegisterForm() {
+  const router = useRouter()
+  const form = useForm<RegisterSchema>({
+    resolver: zodResolver(registerSchema),
+  })
+
+  const onSubmit = async (formData: RegisterSchema) => {
+    try {
+      const registerResponse = await fetch('/api/auth/register', {
+        body: JSON.stringify(formData),
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+      })
+
+      const registerJson = await registerResponse.json()
+
+      if (!registerResponse.ok || registerJson.status !== 201) {
+        toast.error(registerJson.message)
+        return
+      }
+
+      router.push('/auth/login')
+    } catch (error) {
+      toast.error(
+        'Ocorreu um erro inesperado. Por favor, tente novamente mais tarde.'
+      )
+    }
+  }
+
+  return {
+    form,
+    onSubmit,
+  }
+}

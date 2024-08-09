@@ -1,27 +1,19 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-
 import { Button } from '@/components/ui/button'
 import { ErrorMessage } from '@/components/ui/error-message'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
-import { RegisterSchema, registerSchema } from '../utils'
+import { useRegisterForm } from '../hooks/use-register-form'
 
 export function RegisterForm() {
+  const { form, onSubmit } = useRegisterForm()
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<RegisterSchema>({
-    resolver: zodResolver(registerSchema),
-  })
-
-  const onSubmit = async (formData: RegisterSchema) => {
-    console.log(formData)
-  }
+  } = form
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -107,7 +99,9 @@ export function RegisterForm() {
           <ErrorMessage>{errors.password?.message}</ErrorMessage>
         </div>
       </div>
-      <Button className="w-full">Cadastrar</Button>
+      <Button className="w-full" disabled={isSubmitting}>
+        Cadastrar
+      </Button>
     </form>
   )
 }
