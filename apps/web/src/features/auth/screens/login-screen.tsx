@@ -1,13 +1,34 @@
+'use client'
+
 import { Input } from '@/components/ui/input'
 import { AuthTitle } from '../components/auth-title'
 import { AuthSubtitle } from '../components/auth-subtitle'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { useForm } from 'react-hook-form'
+import { loginSchema, LoginSchema } from '../utils'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ErrorMessage } from '@/components/ui/error-message'
 
 export function LoginScreen() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginSchema>({
+    resolver: zodResolver(loginSchema),
+  })
+
+  const onSubmit = async (formData: LoginSchema) => {
+    console.log(formData)
+  }
+
   return (
-    <div className="space-y-6 text-center mx-auto w-full max-w-md">
+    <form
+      className="space-y-6 text-center mx-auto w-full max-w-md"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div className="space-y-2">
         <AuthTitle>Login</AuthTitle>
         <AuthSubtitle>Faça login para acessar sua conta</AuthSubtitle>
@@ -22,7 +43,15 @@ export function LoginScreen() {
             CPF / CNPJ
           </Label>
 
-          <Input placeholder="CPF / CNPJ" />
+          <Input
+            {...register('taxNumber')}
+            id="taxNumber"
+            placeholder="CPF / CNPJ"
+            disabled={isSubmitting}
+            autoComplete="taxNumber"
+          />
+
+          <ErrorMessage>{errors.taxNumber?.message}</ErrorMessage>
         </div>
 
         <div className="space-y-1">
@@ -34,9 +63,15 @@ export function LoginScreen() {
           </Label>
 
           <Input
+            {...register('password')}
+            id="password"
             placeholder="Senha"
             type="password"
+            disabled={isSubmitting}
+            autoComplete="password"
           />
+
+          <ErrorMessage>{errors.password?.message}</ErrorMessage>
         </div>
       </div>
 
@@ -51,6 +86,6 @@ export function LoginScreen() {
           Registre-se
         </Link>
       </AuthSubtitle>
-    </div>
+    </form>
   )
 }
