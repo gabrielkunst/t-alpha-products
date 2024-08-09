@@ -1,1 +1,1 @@
-export async function POST(request: Request) {}
+export { POST } from '@/features/auth/api/login'

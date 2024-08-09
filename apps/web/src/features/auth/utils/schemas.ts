@@ -16,7 +16,7 @@ export type RegisterSchema = z.infer<typeof registerSchema>
 
 export const loginSchema = z.object({
   taxNumber: z.string().trim().min(1, 'CPF / CNPJ é obrigatório'),
-  password: z.string().trim().min(6, 'Senha deve ter no mínimo 6 caracteres'),
+  password: z.string().trim().min(1, 'Senha é obrigatória'),
 })
 
 export type LoginSchema = z.infer<typeof loginSchema>

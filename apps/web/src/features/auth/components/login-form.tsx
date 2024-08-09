@@ -1,25 +1,19 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-
 import { Button } from '@/components/ui/button'
 import { ErrorMessage } from '@/components/ui/error-message'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
-import { LoginSchema, loginSchema } from '../utils'
+import { useLoginForm } from '../hooks/use-login-form'
 
 export function LoginForm() {
+  const { form, onSubmit } = useLoginForm()
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<LoginSchema>({
-    resolver: zodResolver(loginSchema),
-  })
-
-  const onSubmit = async (formData: LoginSchema) => {}
+  } = form
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>

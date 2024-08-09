@@ -3,17 +3,17 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
-import { RegisterSchema, registerSchema } from '../utils'
+import { LoginSchema, loginSchema } from '../utils'
 
-export function useRegisterForm() {
+export function useLoginForm() {
   const router = useRouter()
-  const form = useForm<RegisterSchema>({
-    resolver: zodResolver(registerSchema),
+  const form = useForm<LoginSchema>({
+    resolver: zodResolver(loginSchema),
   })
 
-  const onSubmit = async (formData: RegisterSchema) => {
+  const onSubmit = async (formData: LoginSchema) => {
     try {
-      const response = await fetch('/api/auth/register', {
+      const response = await fetch('/api/auth/login', {
         body: JSON.stringify(formData),
         method: 'POST',
         headers: {
@@ -23,13 +23,13 @@ export function useRegisterForm() {
 
       const json = await response.json()
 
-      if (!response.ok || json.status !== 201) {
+      if (!response.ok || json.status !== 200) {
         toast.error(json.message)
         return
       }
 
       toast.success(json.message)
-      router.push('/auth/login')
+      router.push('/app')
     } catch (error) {
       toast.error(
         'Ocorreu um erro inesperado. Por favor, tente novamente mais tarde.'
