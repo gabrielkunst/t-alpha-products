@@ -17,7 +17,7 @@ export function LoginScreen() {
         <div className="space-y-1">
           <Label
             className="sr-only"
-            htmlFor="cpf-cnpj"
+            htmlFor="taxNumber"
           >
             CPF / CNPJ
           </Label>

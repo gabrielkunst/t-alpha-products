@@ -1,2 +1,2 @@
-export { RegisterScreen } from './register-screen'
-export { LoginScreen } from './login-screen'
+export * from './register-screen'
+export * from './login-screen'

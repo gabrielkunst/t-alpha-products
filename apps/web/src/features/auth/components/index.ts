@@ -1,1 +1,1 @@
-export { AuthScreensLayout } from './auth-screens-layout'
+export * from './auth-screens-layout'
