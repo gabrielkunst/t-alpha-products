@@ -17,9 +17,7 @@ export function LoginForm() {
     resolver: zodResolver(loginSchema),
   })
 
-  const onSubmit = async (formData: LoginSchema) => {
-    console.log(formData)
-  }
+  const onSubmit = async (formData: LoginSchema) => {}
 
   return (
     <form
