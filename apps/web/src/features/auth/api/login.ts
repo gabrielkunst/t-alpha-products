@@ -6,7 +6,7 @@ import { loginSchema } from '@/features/auth/utils'
 
 const ONE_WEEK_IN_SECONDS = 60 * 60 * 24 * 7
 
-export async function POST(request: NextRequest) {
+export async function login(request: NextRequest) {
   try {
     const body = await request.json()
     const cookiesStore = cookies()
