@@ -2,15 +2,19 @@ import { env } from '@alpha/env'
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
-import { loginSchema } from '@/features/auth/utils'
+import { productSchema } from '../utils/schemas'
 
-const ONE_WEEK_IN_SECONDS = 60 * 60 * 24 * 7
+type Params = {
+  productId: string
+}
 
-export async function login(request: NextRequest) {
+export async function updateProduct(request: NextRequest, params: Params) {
   try {
+    const { productId } = params
     const body = await request.json()
     const cookiesStore = cookies()
-    const validatedFields = loginSchema.safeParse(body)
+
+    const validatedFields = productSchema.safeParse(body)
 
     if (!validatedFields.success) {
       return NextResponse.json({
@@ -20,11 +24,16 @@ export async function login(request: NextRequest) {
       })
     }
 
-    const response = await fetch(`${env.API_URL}/api/auth/login`, {
-      body: JSON.stringify(body),
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-    })
+    const accessToken = cookiesStore.get('accessToken')
+
+    const response = await fetch(
+      `${env.API_URL}/api/products/update-product/${productId}`,
+      {
+        body: JSON.stringify(body),
+        method: 'PATCH',
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    )
 
     const json = await response.json()
 
@@ -34,13 +43,6 @@ export async function login(request: NextRequest) {
         message: json.message,
       })
     }
-
-    cookiesStore.set('accessToken', json.data.token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'strict',
-      maxAge: ONE_WEEK_IN_SECONDS,
-    })
 
     return NextResponse.json({
       status: response.status,
