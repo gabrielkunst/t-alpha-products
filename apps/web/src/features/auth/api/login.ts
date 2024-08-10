@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
 
     const json = await response.json()
 
-    if (!response.ok || json.status !== 200) {
+    if (!response.ok) {
       return NextResponse.json({
         status: response.status,
         message: json.message,

@@ -29,7 +29,7 @@ export function useLoginForm() {
       }
 
       toast.success(json.message)
-      router.push('/app')
+      router.replace('/app')
     } catch (error) {
       toast.error(
         'Ocorreu um erro inesperado. Por favor, tente novamente mais tarde.'
