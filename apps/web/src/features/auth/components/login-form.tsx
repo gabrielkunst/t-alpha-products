@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { ErrorMessage } from '@/components/ui/error-message'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { MaskedInput } from '@/components/ui/masked-input'
 
 import { useLoginForm } from '../hooks/use-login-form'
 
@@ -20,13 +21,15 @@ export function LoginForm() {
       <div className="space-y-2">
         <div className="space-y-1">
           <Label className="sr-only" htmlFor="taxNumber">
-            CPF / CNPJ
+            CPF
           </Label>
 
-          <Input
+          <MaskedInput
             {...register('taxNumber')}
+            mask="___.___.___-__"
+            replacement={{ _: /\d/ }}
             id="taxNumber"
-            placeholder="CPF / CNPJ"
+            placeholder="CPF"
             disabled={isSubmitting}
             autoComplete="taxNumber"
           />

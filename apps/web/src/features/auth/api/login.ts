@@ -28,6 +28,13 @@ export async function POST(request: NextRequest) {
 
     const json = await response.json()
 
+    if (!response.ok || json.status !== 200) {
+      return NextResponse.json({
+        status: response.status,
+        message: json.message,
+      })
+    }
+
     cookiesStore.set('accessToken', json.data.token, {
       httpOnly: true,
       secure: true,
@@ -40,6 +47,7 @@ export async function POST(request: NextRequest) {
       message: json.message,
     })
   } catch (error) {
+    console.error(error)
     return NextResponse.json({
       status: 500,
       message:

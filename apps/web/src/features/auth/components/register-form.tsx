@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { ErrorMessage } from '@/components/ui/error-message'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { MaskedInput } from '@/components/ui/masked-input'
 
 import { useRegisterForm } from '../hooks/use-register-form'
 
@@ -36,13 +37,15 @@ export function RegisterForm() {
 
         <div className="space-y-1">
           <Label className="sr-only" htmlFor="taxNumber">
-            CPF / CNPJ
+            CPF
           </Label>
 
-          <Input
+          <MaskedInput
             {...register('taxNumber')}
+            mask="___.___.___-__"
+            replacement={{ _: /\d/ }}
             id="taxNumber"
-            placeholder="CPF / CNPJ"
+            placeholder="CPF"
             disabled={isSubmitting}
             autoComplete="taxNumber"
           />
@@ -71,8 +74,10 @@ export function RegisterForm() {
             Telefone
           </Label>
 
-          <Input
+          <MaskedInput
             {...register('phone')}
+            mask="(__) _____-____"
+            replacement={{ _: /\d/ }}
             id="phone"
             placeholder="Telefone"
             disabled={isSubmitting}
