@@ -1,38 +1,35 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-
 import { Button } from '@/components/ui/button'
 import { ErrorMessage } from '@/components/ui/error-message'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { MaskedInput } from '@/components/ui/masked-input'
 
-import { LoginSchema, loginSchema } from '../utils'
+import { useLoginForm } from '../hooks/use-login-form'
 
 export function LoginForm() {
+  const { form, onSubmit } = useLoginForm()
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<LoginSchema>({
-    resolver: zodResolver(loginSchema),
-  })
-
-  const onSubmit = async (formData: LoginSchema) => {}
+  } = form
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
       <div className="space-y-2">
         <div className="space-y-1">
           <Label className="sr-only" htmlFor="taxNumber">
-            CPF / CNPJ
+            CPF
           </Label>
 
-          <Input
+          <MaskedInput
             {...register('taxNumber')}
+            mask="___.___.___-__"
+            replacement={{ _: /\d/ }}
             id="taxNumber"
-            placeholder="CPF / CNPJ"
+            placeholder="CPF"
             disabled={isSubmitting}
             autoComplete="taxNumber"
           />
@@ -58,7 +55,9 @@ export function LoginForm() {
         </div>
       </div>
 
-      <Button className="w-full">Entrar</Button>
+      <Button className="w-full" disabled={isSubmitting}>
+        Entrar
+      </Button>
     </form>
   )
 }

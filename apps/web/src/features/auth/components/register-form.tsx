@@ -1,28 +1,20 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-
 import { Button } from '@/components/ui/button'
 import { ErrorMessage } from '@/components/ui/error-message'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { MaskedInput } from '@/components/ui/masked-input'
 
-import { RegisterSchema, registerSchema } from '../utils'
+import { useRegisterForm } from '../hooks/use-register-form'
 
 export function RegisterForm() {
+  const { form, onSubmit } = useRegisterForm()
   const {
     register,
-    control,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<RegisterSchema>({
-    resolver: zodResolver(registerSchema),
-  })
-
-  const onSubmit = async (formData: RegisterSchema) => {
-    console.log(formData)
-  }
+  } = form
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -45,13 +37,15 @@ export function RegisterForm() {
 
         <div className="space-y-1">
           <Label className="sr-only" htmlFor="taxNumber">
-            CPF / CNPJ
+            CPF
           </Label>
 
-          <Input
+          <MaskedInput
             {...register('taxNumber')}
+            mask="___.___.___-__"
+            replacement={{ _: /\d/ }}
             id="taxNumber"
-            placeholder="CPF / CNPJ"
+            placeholder="CPF"
             disabled={isSubmitting}
             autoComplete="taxNumber"
           />
@@ -65,14 +59,14 @@ export function RegisterForm() {
           </Label>
 
           <Input
-            {...register('email')}
-            id="email"
+            {...register('mail')}
+            id="mail"
             placeholder="E-mail"
             disabled={isSubmitting}
             autoComplete="email"
           />
 
-          <ErrorMessage>{errors.email?.message}</ErrorMessage>
+          <ErrorMessage>{errors.mail?.message}</ErrorMessage>
         </div>
 
         <div className="space-y-1">
@@ -80,8 +74,10 @@ export function RegisterForm() {
             Telefone
           </Label>
 
-          <Input
+          <MaskedInput
             {...register('phone')}
+            mask="(__) _____-____"
+            replacement={{ _: /\d/ }}
             id="phone"
             placeholder="Telefone"
             disabled={isSubmitting}
@@ -108,7 +104,9 @@ export function RegisterForm() {
           <ErrorMessage>{errors.password?.message}</ErrorMessage>
         </div>
       </div>
-      <Button className="w-full">Cadastrar</Button>
+      <Button className="w-full" disabled={isSubmitting}>
+        Cadastrar
+      </Button>
     </form>
   )
 }

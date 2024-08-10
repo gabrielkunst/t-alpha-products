@@ -11,7 +11,7 @@ export function ErrorMessage({ className, ...props }: ErrorMessageProps) {
   return (
     <p
       {...props}
-      className={cn('ml-1 text-left text-sm text-red-500', className)}
+      className={cn('ml-1 text-left text-xs text-red-500', className)}
     />
   )
 }
