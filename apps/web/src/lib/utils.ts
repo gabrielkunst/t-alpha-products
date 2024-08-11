@@ -34,3 +34,14 @@ export function refinePhone(value: string): boolean {
 export function removeNonDigits(value: string): string {
   return value.replace(/\D/g, '')
 }
+
+export function formatCurrency(value: number): string {
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(value)
+}
+
+export function isValidPrice(price: string): boolean {
+  return !!price.match(/^\d+(\.\d{1,2})?$/)
+}

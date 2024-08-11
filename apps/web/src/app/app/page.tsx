@@ -1,7 +1,5 @@
+import { DashboardScreen } from '@/features/products/screens/dashboard-screen'
+
 export default function HomePage() {
-  return (
-    <div>
-      <h1>Home Page</h1>
-    </div>
-  )
+  return <DashboardScreen />
 }
