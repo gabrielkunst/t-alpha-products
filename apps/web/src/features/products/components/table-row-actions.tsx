@@ -4,13 +4,13 @@ import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
 import { useRowActions } from '../hooks/use-row-actions'
 import { ProductDTO } from '../utils/dtos'
+import { UpdateProductButton } from './update-product-button'
 
 interface TableRowActionsProps {
   product: ProductDTO
@@ -33,9 +33,15 @@ export function TableRowActions({ product }: TableRowActionsProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem>Editar</DropdownMenuItem>
+        <UpdateProductButton product={product} />
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleDelete}>Excluir</DropdownMenuItem>
+        <Button
+          variant="ghost"
+          className="w-full font-normal"
+          onClick={handleDelete}
+        >
+          Excluir
+        </Button>
       </DropdownMenuContent>
     </DropdownMenu>
   )
