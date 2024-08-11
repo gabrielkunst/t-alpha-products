@@ -7,7 +7,6 @@ Este repositório contém o frontend de um sistema com autenticação e CRUD de 
 ## Tecnologias Utilizadas
 
 - **Frontend**: NextJS, React, TypeScript, Tailwind CSS
-- **Autenticação**: JWT
 
 ## Funcionalidades
 
