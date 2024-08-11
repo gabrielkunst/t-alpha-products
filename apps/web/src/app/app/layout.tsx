@@ -4,9 +4,11 @@ import { Sidebar } from '@/components/sidebar'
 
 export default function HomeLayout({ children }: PropsWithChildren) {
   return (
-    <div className="flex min-h-screen w-full">
+    <div className="flex max-h-screen min-h-screen w-full overflow-hidden">
       <Sidebar />
-      <main className="flex-1 p-8">{children}</main>
+      <main className="max-h-screen flex-1 overflow-y-auto p-8 lg:p-12">
+        {children}
+      </main>
     </div>
   )
 }

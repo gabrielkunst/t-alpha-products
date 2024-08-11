@@ -1,18 +1,17 @@
 import { env } from '@alpha/env'
-import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
 type Params = {
-  productId: string
+  params: {
+    productId: string
+  }
 }
 
-export async function deleteProduct(request: NextRequest, params: Params) {
+export async function deleteProduct(request: NextRequest, { params }: Params) {
   try {
     const { productId } = params
 
-    const cookiesStore = cookies()
-    const accessToken = cookiesStore.get('accessToken')
-
+    const accessToken = request.cookies.get('accessToken')?.value
     const response = await fetch(
       `${env.API_URL}/api/products/delete-product/${productId}`,
       {
@@ -23,18 +22,13 @@ export async function deleteProduct(request: NextRequest, params: Params) {
       }
     )
 
-    const json = await response.json()
-
-    if (!response.ok) {
-      return NextResponse.json({
-        status: response.status,
-        message: json.message,
-      })
+    if (!response.ok || response.status !== 204) {
+      throw new Error('Erro ao excluir o produto.')
     }
 
     return NextResponse.json({
-      status: response.status,
-      message: json.message,
+      status: 200,
+      message: 'Produto excluído com sucesso.',
     })
   } catch (error) {
     console.error(error)

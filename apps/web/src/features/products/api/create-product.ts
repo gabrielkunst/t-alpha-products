@@ -1,5 +1,4 @@
 import { env } from '@alpha/env'
-import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { productSchema } from '../utils/schemas'
@@ -7,7 +6,6 @@ import { productSchema } from '../utils/schemas'
 export async function createProduct(request: NextRequest) {
   try {
     const body = await request.json()
-    const cookiesStore = cookies()
     const validatedFields = productSchema.safeParse(body)
 
     if (!validatedFields.success) {
@@ -18,7 +16,7 @@ export async function createProduct(request: NextRequest) {
       })
     }
 
-    const accessToken = cookiesStore.get('accessToken')
+    const accessToken = request.cookies.get('accessToken')?.value
     const response = await fetch(`${env.API_URL}/api/products/create-product`, {
       body: JSON.stringify(body),
       method: 'POST',

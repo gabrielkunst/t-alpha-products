@@ -1,11 +1,9 @@
 import { env } from '@alpha/env'
-import { cookies } from 'next/headers'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
-export async function getProducts() {
+export async function getProducts(request: NextRequest) {
   try {
-    const cookiesStore = cookies()
-    const accessToken = cookiesStore.get('accessToken')
+    const accessToken = request.cookies.get('accessToken')?.value
 
     const response = await fetch(
       `${env.API_URL}/api/products/get-all-products`,
