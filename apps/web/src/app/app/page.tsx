@@ -1,7 +1,9 @@
+import { Title } from '@/components/ui/title'
+
 export default function HomePage() {
   return (
     <div>
-      <h1>Home Page</h1>
+      <Title>Produtos</Title>
     </div>
   )
 }
