@@ -81,6 +81,7 @@ export function ProductForm({
             {...register('price')}
             id="price"
             type="number"
+            step={0.01}
             placeholder="Preço"
             disabled={isSubmitting}
           />

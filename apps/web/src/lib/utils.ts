@@ -41,3 +41,7 @@ export function formatCurrency(value: number): string {
     currency: 'BRL',
   }).format(value)
 }
+
+export function isValidPrice(price: string): boolean {
+  return !!price.match(/^\d+(\.\d{1,2})?$/)
+}
