@@ -14,5 +14,5 @@
       "persistent": true
     }
   },
-  "globalEnv": ["API_URL"]
+  "globalEnv": ["API_URL", "APP_URL"]
 }
